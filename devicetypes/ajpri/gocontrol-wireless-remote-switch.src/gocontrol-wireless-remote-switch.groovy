@@ -18,6 +18,8 @@
  /*
  Hubitat Compatibility
  
+ Version 1.2c - January 6th, 2020 by Leonardo Gravé
+    	Add held released event.
  Version 1.2b - 5 February 2018
  	Initial Compatibility Release
  	
@@ -83,14 +85,11 @@ def zwaveEvent(hubitat.zwave.commands.centralscenev1.CentralSceneNotification cm
     	
 
     if(cmd.keyAttributes == 0){
-		//ST: createEvent(name: "button", value: "pushed", data: [buttonNumber: button], descriptionText: "$device.displayName button $button was pushed", isStateChange: true)
-		createEvent(name: "pushed", value: button, descriptionText: "$device.displayName button $button was pushed", isStateChange: true)
-    }else if(cmd.keyAttributes == 1){
-		//createEvent(name: "button", value: "holdRelease", data: [buttonNumber: button], descriptionText: "$device.displayName button $button was released", isStateChange: true)
-		//Need to re-implement holdRelease     	
+	createEvent(name: "pushed", value: button, descriptionText: "$device.displayName button $button was pushed", isStateChange: true)
     }else if(cmd.keyAttributes == 2){
-		//createEvent(name: "button", value: "held", data: [buttonNumber: button], descriptionText: "$device.displayName button $button was held", isStateChange: true)
-    	createEvent(name: "held", value: button, descriptionText: "$device.displayName button $button was held", isStateChange: true)
+    	createEvent(name: "held", value: button, descriptionText: "$device.displayName button $button was held", isStateChange: true)	
+    }else if(cmd.keyAttributes == 1){
+	createEvent(name: "released", value: button, descriptionText: "$device.displayName button $button was released", isStateChange: true)
     	
     }      
 }
